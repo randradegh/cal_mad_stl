@@ -24,7 +24,6 @@ st.markdown("""
 
 
 t1, t2 = st.columns((1,5), gap="medium") 
-#t1.image('images/fq_logo_01.png', width = 50)
 t1.image('images/UNAM-universidad-1.png', width = 100)
 t2.write("# :green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
 st.header("Proyecto Datos MAD")
@@ -37,54 +36,47 @@ df = read_data()
 #
 # Limpiamos datos
 #
-#
-# Eliminación de los registros de los alumnos que desertaron
-##
-df.drop(df[df['Avance'] == 'Desertó'].index, inplace=True)
 
-# Eliminamos las columnas no necesarias para el análisis de calificaciones
-# df_cal contendrá solamente las calificaciones y las generaciones
-df_cal=df.drop(['No.', 'Nombre', 'Avance', 'Graduado', 'SIMAD', 'ADA', 'Fecha de Nacimiento', 'Carrera', 'Escuela', 'IES', 'Otro grado', 'Escuela otro', 'IES otro', 'Edad al ingresar'], axis=1)
-#st.write(df_cal)
-
-#
-# Limpiamos datos
-#
-for column in df_cal:
-    df_cal[column] = df_cal[column].replace('NI',np.nan)
-    df_cal[column] = df_cal[column].replace('NP',np.nan)
-    df_cal[column] = df_cal[column].astype("float64")
-
+df_cleaned = df_cleaned = clean_data(df)
 
 #st.markdown("Tabla con datos cuantitativos (sin generaciones)")
-df_num=df_cal.drop(['Generación'], axis=1)
+df_num=df_cleaned.drop(['Generación'], axis=1)
 #st.write(df_num)
 st.write(f"Cantidad de registros: {df_num.shape[0]}")
 
-
 fig = go.Figure()
-
 for col in df_num:
   fig.add_trace(go.Box(y=df[col].values, name=df[col].name))
   
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-df['Fecha de Nacimiento'] = df['Fecha de Nacimiento'].astype('datetime64[ns]')
-df['Year'] = df['Fecha de Nacimiento'].dt.strftime('%Y')
 
-fig = px.bar(df, x=df['Year'], title="Año de Nacimiento", color=df["Year"])
+fig = px.histogram(df, x=df['Edad al ingresar'], nbins=40, title="Edad al ingresar", color=df["Edad al ingresar"])
 fig.update_layout(
     font_family="Arial",
     font_color="blue",
     title_font_family="Arial",
     title_font_color="brown",
-    xaxis_title="Año de Nacimiento",
+    xaxis_title="Edad",
     yaxis_title="Cantidad",
     legend_title_font_color="brown"
 )
 #fig.update_layout(xaxis={'categoryorder':'total ascending'}) # add only this line
 
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
+
+fig=px.box(y=df['Edad al ingresar'].values, title='Edad al ingresar')
+fig.update_layout(
+    font_family="Arial",
+    font_color="blue",
+    title_font_family="Arial",
+    title_font_color="brown",
+    xaxis_title="Edad",
+    yaxis_title="Cantidad",
+    legend_title_font_color="brown"
+)
+fig
+
 
 fig = px.bar(df['IES'], title="IES", color=df["IES"])
 fig.update_layout(
@@ -115,9 +107,9 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # Heatmap de calificaciones
 #
 # Asignaturas 
-asignaturas = (df_cal.columns.to_numpy())
+asignaturas = (df_cleaned.columns.to_numpy())
 st.write(asignaturas)
-df_gg=df_cal.groupby(['Generación'])[asignaturas].mean()
+df_gg=df_cleaned.groupby(['Generación'])[asignaturas].mean()
 #st.write(type(df_gg))
 df_gg["Generación"] = df_gg['Generación'].astype("category")
 
