@@ -32,7 +32,15 @@ st.header("Proyecto Datos MAD")
 #
 # Lectura de datos
 #
-df = pd.read_csv("data/cal_mad_01.csv", sep=',')
+df = read_data()
+
+#
+# Limpiamos datos
+#
+#
+# Eliminación de los registros de los alumnos que desertaron
+##
+df.drop(df[df['Avance'] == 'Desertó'].index, inplace=True)
 
 # Eliminamos las columnas no necesarias para el análisis de calificaciones
 # df_cal contendrá solamente las calificaciones y las generaciones

@@ -22,7 +22,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.image("images/head_01.png")
 t1, t2 = st.columns((1,5), gap="medium") 
-#t1.image('images/fq_logo_01.png', width = 50)
 t1.image('images/UNAM-universidad-1.png', width = 100)
 t2.write("# :green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
 st.header("Proyecto Datos MAD")
@@ -30,39 +29,14 @@ st.header("Proyecto Datos MAD")
 #
 # Lectura de datos
 #
-df = pd.read_csv("data/cal_mad_01.csv", sep=',')
+df = read_data()
 
 #
-# Eliminación de los registros de los alumnos que desertaron
-##
-df.drop(df[df['Avance'] == 'Desertó'].index, inplace=True)
-
-# Eliminamos las columnas no necesarias para el análisis de calificaciones
-# df_cal contendrá solamente las calificaciones y las generaciones
-df_cal=df.drop(['No.', 'Nombre', 'Avance', 'Graduado', 'SIMAD', 'ADA', 'Fecha de Nacimiento', 'Carrera', 'Escuela', 'IES', 'Otro grado', 'Escuela otro', 'IES otro', 'Edad al ingresar'], axis=1)
-# st.write(df_cal)
-for column in df_cal:
-    df_cal[column] = df_cal[column].replace('NI',np.nan)
-    df_cal[column] = df_cal[column].replace('NP',np.nan)
-    df_cal[column] = df_cal[column].astype("float64")
-#df = df.drop(df[df.score < 50].index)
-#st.write(df_cal)
-st.markdown("#### Datos limpios")
-"""
-- Se reemplazaron los valores de 'NI' y 'NP' por valores nulos, de tal manera que 
-no sean tomados en cuenta para los cálculos estadísticos necesarios para el análisis.
-- Se eliminaron los registros de los alumnos que hayan desertado.
-
-Solamente se muestran los datos cuantitativos.
-
-##### **_Dataframe_** con los datos limpios
-"""
-
-df_num=df_cal.drop(['Generación'], axis=1)
-#st.write(df_num)
+# Limpieza de datos
+#
+df_cleaned = clean_data(df)
 
 """
-___
 ## Indicadores de Desempeño
 
 ### Promedios Totales por Asignatura
@@ -89,7 +63,7 @@ for x in asigs[0:6]:
     #
     # Calculamos los promedios de cada asignatura
     #
-    media = pd.to_numeric(df_cal[x]).mean().round(2)
+    media = pd.to_numeric(df_cleaned[x]).mean().round(2)
     
     with cols[ncol-1]:
         #st.write(f"#### {x}")
@@ -125,7 +99,7 @@ for x in asigs[6:12]:
     #
     # Calculamos los promedios de cada asignatura
     #
-    media = pd.to_numeric(df_cal[x]).mean().round(2)
+    media = pd.to_numeric(df_cleaned[x]).mean().round(2)
     
     with cols[ncol-1]:
         #st.write(f"#### {x}")

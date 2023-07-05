@@ -22,7 +22,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.image("images/head_01.png")
 t1, t2 = st.columns((1,5), gap="medium") 
-#t1.image('images/fq_logo_01.png', width = 50)
 t1.image('images/UNAM-universidad-1.png', width = 100)
 t2.write("# :green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
 st.header("Proyecto Datos MAD")
@@ -30,13 +29,11 @@ st.header("Proyecto Datos MAD")
 #
 # Lectura de datos
 #
-df = pd.read_csv("data/cal_mad_01.csv", sep=',')
-
+df = read_data()
 
 #
 # Intro
 #
-
 """
 El análisis de datos en las calificaciones de un programa de maestría en alta dirección puede proporcionar valiosas perspectivas e **insights** que 
 ayuden a mejorar la calidad y efectividad del programa. Aquí hay algunas razones clave para realizar análisis de datos en este contexto:
@@ -53,8 +50,6 @@ ofreciendo materiales de estudio adicionales, tutorías específicas o adaptando
 Esta es la primera versión de un proyecto que tiene como objetivo ofrecer de manera sintética algunos datos y gráficos que permitan conocer mejor el desempeño general de
 la *Maestría en Alta Dirección* de la Facultad de Química de la UNAM.
 """
-
-
 
 """
 ___
@@ -102,20 +97,13 @@ Entre estas operaciones se encuentran:
 #
 # Eliminación de los registros de los alumnos que desertaron
 ##
-df.drop(df[df['Avance'] == 'Desertó'].index, inplace=True)
+df_cleaned = clean_data(df)
+st.write(df_cleaned)
 
-# Eliminamos las columnas no necesarias para el análisis de calificaciones
-# df_cal contendrá solamente las calificaciones y las generaciones
-df_cal=df.drop(['No.', 'Nombre', 'Avance', 'Graduado', 'SIMAD', 'ADA', 'Fecha de Nacimiento', 'Carrera', 'Escuela', 'IES', 'Otro grado', 'Escuela otro', 'IES otro', 'Edad al ingresar'], axis=1)
-# st.write(df_cal)
-for column in df_cal:
-    df_cal[column] = df_cal[column].replace('NI',np.nan)
-    df_cal[column] = df_cal[column].replace('NP',np.nan)
-    df_cal[column] = df_cal[column].astype("float64")
-#df = df.drop(df[df.score < 50].index)
-st.write(df_cal)
-st.markdown("#### Datos limpios")
+
 """
+___
+#### Datos limpios
 - Se reemplazaron los valores de 'NI' y 'NP' por valores nulos, de tal manera que 
 no sean tomados en cuenta para los cálculos estadísticos necesarios para el análisis.
 - Se eliminaron los registros de los alumnos que hayan desertado.
@@ -125,7 +113,7 @@ Solamente se muestran los datos cuantitativos.
 ##### **_Dataframe_** con los datos limpios
 """
 
-df_num=df_cal.drop(['Generación'], axis=1)
+df_num=df_cleaned.drop(['Generación'], axis=1)
 st.write(df_num)
 
 ###
@@ -143,7 +131,7 @@ cant_alumnos_total = len(df.index)
 qty_gen = len(df.Generación.unique())
 
 # Promedio general de calificaciones
-cal_promedio_gral = df_cal.Promedio.mean().round(2)
+cal_promedio_gral = df_cleaned.Promedio.mean().round(2)
 
 # Porcentaje de desertores
 porcien_desertores= (qty_desertores * 100) / qty_alumnos_registrados
