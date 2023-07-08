@@ -36,8 +36,7 @@ df = read_data()
 #
 # Limpiamos datos
 #
-
-df_cleaned = df_cleaned = clean_data(df)
+df_cleaned = clean_data(df)
 
 #st.markdown("Tabla con datos cuantitativos (sin generaciones)")
 df_num=df_cleaned.drop(['Generación'], axis=1)
@@ -46,7 +45,7 @@ st.write(f"Cantidad de registros: {df_num.shape[0]}")
 
 fig = go.Figure()
 for col in df_num:
-  fig.add_trace(go.Box(y=df[col].values, name=df[col].name))
+  fig.add_trace(go.Box(y=df_num[col].values, name=df_num[col].name))
   
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
@@ -109,6 +108,7 @@ st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 # Asignaturas 
 asignaturas = (df_cleaned.columns.to_numpy())
 st.write(asignaturas)
+
 df_gg=df_cleaned.groupby(['Generación'])[asignaturas].mean()
 #st.write(type(df_gg))
 df_gg["Generación"] = df_gg['Generación'].astype("category")
@@ -138,7 +138,7 @@ fig = go.Figure(data = data)
 st.plotly_chart(fig, use_container_width=True)
 
 #
-# Promedio generañ por generación
+# Promedio general por generación
 #
 
 fig = px.bar(

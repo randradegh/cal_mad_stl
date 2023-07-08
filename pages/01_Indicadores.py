@@ -30,6 +30,7 @@ st.header("Proyecto Datos MAD")
 # Lectura de datos
 #
 df = read_data()
+st.write(df)
 
 #
 # Limpieza de datos
@@ -66,7 +67,6 @@ for x in asigs[0:6]:
     media = pd.to_numeric(df_cleaned[x]).mean().round(2)
     
     with cols[ncol-1]:
-        #st.write(f"#### {x}")
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
             value=media,
@@ -77,7 +77,6 @@ for x in asigs[0:6]:
                     dict(range=[0, 10], color="lightgray")
                 ],
             ),
-            #domain={"x": [0, 1], "y": [0, 1]},
             domain={'row': 0, 'column':  0},
             title={'text': x}
         ))
@@ -102,7 +101,6 @@ for x in asigs[6:12]:
     media = pd.to_numeric(df_cleaned[x]).mean().round(2)
     
     with cols[ncol-1]:
-        #st.write(f"#### {x}")
         fig = go.Figure(go.Indicator(
             mode="gauge+number",
             value=media,
@@ -113,7 +111,6 @@ for x in asigs[6:12]:
                     dict(range=[0, 10], color="lightgray")
                 ],
             ),
-            #domain={"x": [0, 1], "y": [0, 1]},
             domain={'row': 0, 'column':  0},
             title={'text': x}
         ))
@@ -125,3 +122,44 @@ for x in asigs[6:12]:
 
         fig
 
+# Supongamos que tienes un DataFrame llamado 'df' con una columna 'Generación'
+df_cleaned["Generación"] = df_cleaned["Generación"].astype("category")
+
+# Ordenar y obtener los valores únicos de la columna 'Generación'
+generaciones = sorted(df_cleaned['Generación'].unique())
+
+#st.write(generaciones)
+# Convertir los valores a cadena sin separador de miles
+generaciones = [int(g) for g in generaciones]
+
+
+# Crear el widget select en Streamlit
+generacion_seleccionada = st.selectbox('Selecciona una generación', generaciones)
+
+#st.write('Sel: ' + str(generacion_seleccionada))
+
+#
+# Gráfico de la generación seleccionada
+#
+
+asignaturas = (df_cleaned.columns.to_numpy())
+
+# Filtramos para la generación seleccionada
+#
+df_gs = df_cleaned[(df_cleaned['Generación']==generacion_seleccionada)]
+#st.write(df_gs)
+
+df_gs=df_gs.drop(['Generación', 'Promedio'], axis=1)
+
+
+df_gsg=df_gs.mean()
+df_gsg=df_gsg.to_frame()
+
+df_gsg.reset_index(inplace=True)
+df_gsg.rename({'index':'asignatura', 0:'calificaciones'}, axis=1, inplace=True)
+#st.write(df_gsg)
+    
+fig = px.bar( df_gsg, x='asignatura', y='calificaciones', color='calificaciones', 
+             title='Calificaciones promedio de la Generación ' + str(generacion_seleccionada),
+             color_continuous_scale=['red', 'blue'])
+fig
