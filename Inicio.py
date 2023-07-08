@@ -1,6 +1,13 @@
 # Incluímos las bibliotecas necesarias
 from utils import *
 from os import ST_WRITE
+# Debe ser el primer comando
+st.set_page_config(
+    layout="wide",
+    page_title="Análisis de Calificaciones. MAD/FQ/UNAM",
+    page_icon="🧊",     
+    initial_sidebar_state="auto"
+)
 
 st.markdown(
     """

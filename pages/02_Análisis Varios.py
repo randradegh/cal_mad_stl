@@ -1,7 +1,13 @@
 # Incluímos las bibliotecas necesarias
 from utils import *
 from os import ST_WRITE
-
+# Debe ser el primer comando
+st.set_page_config(
+    layout="wide",
+    page_title="Análisis de Calificaciones. MAD/FQ/UNAM",
+    page_icon="🧊",     
+    initial_sidebar_state="auto"
+)
 
 st.markdown(
     """
@@ -116,25 +122,34 @@ df_gg["Generación"] = df_gg['Generación'].astype("category")
 st.markdown('Agrupada')
 st.write(df_gg)
 
+#
+# Mapa de calor
+#
 gen = df_gg.values.round(1)
 
-
-st.write(gen)
+#st.write(gen)
 trace = go.Heatmap(
    x = asignaturas,
    y = df_gg['Generación'],
    z = gen,
    type = 'heatmap',
-   colorscale = 'plasma',
+   colorscale = ['white', '#31B404'],
    zmin=5,
    zmax=10,
    text=gen,
+   #title={"text":"Title"},
    texttemplate="%{text}",
-   textfont={"size": 10, "color":'maroon'}
+   textfont={"size": 10, "color":'white'}
 )
-data = [trace]
 
-fig = go.Figure(data = data)
+
+
+
+trace.colorbar.title = "Calificación"
+
+fig = go.Figure(data = trace)
+fig.update_layout(autosize=False, width=600, height=600, title={'text':'Mapa de calor de calificaciones'})
+#fig['layout'].update(plot_bgcolor='#2E64FE')
 st.plotly_chart(fig, use_container_width=True)
 
 #
@@ -147,7 +162,7 @@ fig = px.bar(
    title='Calificación Total Promedio por Generación',
    color=df_gg['Promedio'],
    text=df_gg['Promedio'].round(2),
-    labels = dict(x = "Generación",y = "Promedio Total")
+   labels = dict(x = "Generación",y = "Promedio Total")
 )
 fig.update_layout(yaxis_range=[6,10])
 

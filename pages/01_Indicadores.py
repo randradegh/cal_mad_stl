@@ -1,6 +1,13 @@
 # Incluímos las bibliotecas necesarias
 from utils import *
 from os import ST_WRITE
+# Debe ser el primer comando
+st.set_page_config(
+    layout="wide",
+    page_title="Análisis de Calificaciones. MAD/FQ/UNAM",
+    page_icon="🧊",     
+    initial_sidebar_state="auto"
+)
 
 st.markdown(
     """
@@ -15,10 +22,20 @@ st.markdown(
 
 st.markdown("""
 <style>
+div[data-baseweb="select"] > div {
+    background-color:#CED8F6;
+                color:#0B0B61
+}
+</style>""", unsafe_allow_html=True)
+
+
+st.markdown("""
+<style>
     [data-testid=stSidebar] {
         background-color: #08088A;
     }
 </style>
+
 """, unsafe_allow_html=True)
 st.image("images/head_01.png")
 t1, t2 = st.columns((1,5), gap="medium") 
@@ -133,8 +150,11 @@ generaciones = sorted(df_cleaned['Generación'].unique())
 generaciones = [int(g) for g in generaciones]
 
 
-# Crear el widget select en Streamlit
-generacion_seleccionada = st.selectbox('Selecciona una generación', generaciones)
+cols1,cols2 = st.columns([1,6])
+
+with cols1:
+    # Crear el widget select en Streamlit
+    generacion_seleccionada = st.selectbox('Seleccione una generación', generaciones)
 
 #st.write('Sel: ' + str(generacion_seleccionada))
 
@@ -161,5 +181,10 @@ df_gsg.rename({'index':'asignatura', 0:'calificaciones'}, axis=1, inplace=True)
     
 fig = px.bar( df_gsg, x='asignatura', y='calificaciones', color='calificaciones', 
              title='Calificaciones promedio de la Generación ' + str(generacion_seleccionada),
-             color_continuous_scale=['red', 'blue'])
+             #text='calificaciones',
+             text_auto=True,
+             color_continuous_scale=['red', 'white', 'green'])
+fig.update_traces(textposition="outside",
+                  textfont_size = 14
+                  )
 fig
