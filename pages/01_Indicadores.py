@@ -188,3 +188,4 @@ fig.update_traces(textposition="outside",
                   textfont_size = 14
                   )
 fig
+
