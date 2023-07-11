@@ -9,6 +9,12 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
+#
+# Encabezado
+#
+st.image("images/head_02.png")
+encabezado()
+
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
@@ -30,7 +36,7 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-st.image("images/head_01.png")
+
 
 st.markdown("""
 <style>
@@ -41,27 +47,18 @@ div[data-testid="metric-container"] > label[data-testid="stMetricLabel"] > div {
    font-size: 10px;
 }
 </style>
-"""
-, unsafe_allow_html=True)
-
-t1, t2 = st.columns((1,5), gap="medium") 
-t1.image('images/UNAM-universidad-1.png', width = 100)
-t2.write("# :green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
-st.header("Proyecto Datos MAD")
+""", unsafe_allow_html=True)
 
 #
 # Lectura de datos
 #
 df = read_data()
 
-tab1, tab2, tab3 = st.tabs(["¿Qué es el Análisis de Datos? ", "Los Datos", "Indicadores"])
+tab1, tab2, tab3, tab4 = st.tabs(["MAD y sus Datos", "¿Qué es el Análisis de Datos? ", "Los Datos", "Revelaciones"])
 
 with tab1:
-    st.header("Análisis de Datos")
-    #
-    # Intro
-    #
     """
+    ### MAD y sus Datos
     El análisis de datos en las calificaciones de un programa de maestría en alta dirección puede proporcionar valiosas perspectivas e **insights** que 
     ayuden a mejorar la calidad y efectividad del programa. Aquí hay algunas razones clave para realizar análisis de datos en este contexto:
 
@@ -75,13 +72,36 @@ with tab1:
     ofreciendo materiales de estudio adicionales, tutorías específicas o adaptando la metodología de enseñanza para maximizar el aprendizaje y la participación de los estudiantes.
 
     Esta es la primera versión de un proyecto que tiene como objetivo ofrecer de manera sintética algunos datos y gráficos que permitan conocer mejor el desempeño general de
-    la *Maestría en Alta Dirección* de la Facultad de Química de la UNAM.
+    la **Maestría en Alta Dirección** de la Facultad de Química de la UNAM.
     """
 
 with tab2:
+
+    """
+    ### ¿Qué es el análisis de datos?
+
+    El análisis de datos es el proceso de exploración, transformación y examen de datos para identificar tendencias y patrones que revelen *insights* importantes y aumenten 
+    la eficiencia para respaldar la toma de decisiones. Una estrategia moderna de análisis de datos les permite a los sistemas y a las organizaciones trabajar a partir 
+    de análisis automatizados en tiempo real, lo que garantiza resultados inmediatos y de gran impacto.
+
+    #### El proceso de análisis de datos
+    El proceso de análisis de datos se basa en varios pasos y fases. Es posible que las conclusiones de fases posteriores requieran volver a trabajar en una fase anterior, 
+    lo que implica un proceso más cíclico que lineal. Lo más importante es que el éxito de los procesos de análisis de datos depende de la capacidad de repetición y automatización de cada uno de estos pasos.
+    """
+with tab3:
     """
     ___
-    ## Datos Originales
+    ## Origen de los datos
+
+    Los datos fueron proporcionados en una hoja de cálculo con el formato *xlsx*.
+
+    El archivo original contiene la información que comprende desde el inicio de la maestría y hasta el semestre 2023-1.
+
+    Las columnas que contiene el archivo base son:
+
+    > Nombre, Generación, 100%, Graduado, DHyPC, MCyF, ERSyL, EEyME, DTH, SO o DO, VPI, SIG, DE, DCS, DF, C, SIMAD, Promedio, ADA, Observaciones, Fecha de Nacimiento, Edad al ingresar, Carrera, Escuela, IES, Otro grado, Escuela otro e IES otro.
+
+    #### Limpieza de los datos
 
     """
 
@@ -162,9 +182,9 @@ with tab2:
     Más adelante revisaremos con detalle la distribución de calificaciones para cada asignatura.
     """
 
-with tab3:
+with tab4:
     """
-    ## Algunos datos generales
+    ## Revelaciones (*insights*)
     """
     # Cantidad de alumnos
     cant_alumnos_total = len(df.index)

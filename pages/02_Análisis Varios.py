@@ -9,6 +9,11 @@ st.set_page_config(
     initial_sidebar_state="auto"
 )
 
+#
+# Encabezado
+#
+encabezado()
+
 st.markdown(
     """
     <style>
@@ -27,12 +32,6 @@ st.markdown("""
     }
 </style>
 """, unsafe_allow_html=True)
-
-
-t1, t2 = st.columns((1,5), gap="medium") 
-t1.image('images/UNAM-universidad-1.png', width = 100)
-t2.write("# :green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
-st.header("Proyecto Datos MAD")
 
 #
 # Lectura de datos

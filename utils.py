@@ -11,9 +11,16 @@ import pydeck as pdk
 from PIL import Image
 import numpy as np 
 
+
+
 #
 # Funciones
 #
+def encabezado():
+    t1, t2 = st.columns((1,5), gap="medium") 
+    t1.image('images/UNAM-universidad-1.png', width = 100)
+    t2.header(":green[Proyecto Datos]")
+    t2.subheader(":green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
 
 #
 # Lectura del dataset
