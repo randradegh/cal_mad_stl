@@ -107,62 +107,64 @@ dfc=dfc.nlargest(10, 'count')
 fig = px.pie(dfc, values='count', names='IES', title='Los 10 Primeros IES')
 st.plotly_chart(fig, theme="streamlit", use_container_width=True)
 
-#
-# Heatmap de calificaciones
-#
-# Asignaturas 
-asignaturas = (df_cleaned.columns.to_numpy())
-st.write(asignaturas)
+# #
+# # Heatmap de calificaciones
+# #
+# # Asignaturas 
+# asignaturas = (df_cleaned.columns.to_numpy())
+# st.write(asignaturas)
 
-df_gg=df_cleaned.groupby(['Generación'])[asignaturas].mean()
-#st.write(type(df_gg))
-df_gg["Generación"] = df_gg['Generación'].astype("category")
+#df_gg=df_cleaned.groupby(['Generación'])[asignaturas].mean()
+# #st.write(type(df_gg))
+#df_gg.reset_index(inplace=True)
 
-st.markdown('Agrupada')
-st.write(df_gg)
+#df_gg["Generación"] = df_gg['Generación'].astype("category")
 
-#
-# Mapa de calor
-#
-gen = df_gg.values.round(1)
+# st.markdown('Agrupada')
+#st.write(df_gg)
 
-#st.write(gen)
-trace = go.Heatmap(
-   x = asignaturas,
-   y = df_gg['Generación'],
-   z = gen,
-   type = 'heatmap',
-   colorscale = ['white', '#31B404'],
-   zmin=5,
-   zmax=10,
-   text=gen,
-   #title={"text":"Title"},
-   texttemplate="%{text}",
-   textfont={"size": 10, "color":'white'}
-)
+# #
+# # Mapa de calor
+# #
+# gen = df_gg.values.round(1)
+
+# #st.write(gen)
+# trace = go.Heatmap(
+#    x = asignaturas,
+#    y = df_gg['Generación'],
+#    z = gen,
+#    type = 'heatmap',
+#    colorscale = ['white', '#31B404'],
+#    zmin=5,
+#    zmax=10,
+#    text=gen,
+#    #title={"text":"Title"},
+#    texttemplate="%{text}",
+#    textfont={"size": 10, "color":'white'}
+# )
 
 
 
 
-trace.colorbar.title = "Calificación"
+# trace.colorbar.title = "Calificación"
 
-fig = go.Figure(data = trace)
-fig.update_layout(autosize=False, width=600, height=600, title={'text':'Mapa de calor de calificaciones'})
-#fig['layout'].update(plot_bgcolor='#2E64FE')
-st.plotly_chart(fig, use_container_width=True)
+# fig = go.Figure(data = trace)
+# fig.update_layout(autosize=False, width=600, height=600, title={'text':'Mapa de calor de calificaciones'})
+# #fig['layout'].update(plot_bgcolor='#2E64FE')
+# st.plotly_chart(fig, use_container_width=True)
 
-#
-# Promedio general por generación
-#
+# #
+# # Promedio general por generación
+# #
 
-fig = px.bar(
-   y=df_gg['Promedio'], 
-   x=df_gg['Generación'], 
-   title='Calificación Total Promedio por Generación',
-   color=df_gg['Promedio'],
-   text=df_gg['Promedio'].round(2),
-   labels = dict(x = "Generación",y = "Promedio Total")
-)
-fig.update_layout(yaxis_range=[6,10])
+# fig = px.bar(
+#    y=df_gg['Promedio'], 
+#    x=df_gg['Generación'], 
+#    title='Calificación Total Promedio por Generación',
+#    color=df_gg['Promedio'],
+#    text=df_gg['Promedio'].round(2),
+#    labels = dict(x = "Generación",y = "Promedio Total")
+# )
+# fig.update_layout(yaxis_range=[6,10])
 
-st.plotly_chart(fig, use_container_width=True)
+# st.plotly_chart(fig, use_container_width=True)
