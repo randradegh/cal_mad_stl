@@ -17,10 +17,12 @@ import numpy as np
 # Funciones
 #
 def encabezado():
-    t1, t2 = st.columns((1,5), gap="medium") 
+    t1, t2 = st.columns((1,3), gap="medium") 
     t1.image('images/UNAM-universidad-1.png', width = 100)
-    t2.header(":green[Proyecto Datos]")
-    t2.subheader(":green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
+    #t2.header(":gray[Proyecto Datos]")
+    t2.write("# Proyecto Datos")
+    t2.write(" ## :green[Maestría en Alta Dirección] - :blue[FQ / UNAM]")
+    #t3.image('images/data_analysis.jpeg', width = 160)
 
 #
 # Lectura del dataset

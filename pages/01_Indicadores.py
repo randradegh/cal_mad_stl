@@ -49,7 +49,7 @@ st.markdown("""
 # Lectura de datos
 #
 df = read_data()
-st.write(df)
+#st.write(df)
 
 #
 # Limpieza de datos
@@ -60,11 +60,8 @@ df_cleaned = clean_data(df)
 ## Indicadores de Desempeño
 
 ### Promedios Totales por Asignatura
-### 
-
-Cada recuadro muestra el promedio de calificaciones para todos los alumnos de todas las generaciones. 
-
-**Para el cálculo no se incluyeron los alumnos que han desertado.**
+- Cada recuadro muestra el promedio de calificaciones para todos los alumnos de todas las generaciones. 
+- **Para el cálculo no se incluyeron los alumnos que han desertado.**
 ###
 """
 
@@ -76,9 +73,9 @@ asigs = df.columns[5:17].tolist()
 #
 # Primer bloque
 #
-cols = st.columns(6, gap='medium')
+cols = st.columns(4, gap='small')
 ncol = 0
-for x in asigs[0:6]:
+for x in asigs[0:3]:
     ncol = ncol + 1
     #
     # Calculamos los promedios de cada asignatura
@@ -110,9 +107,9 @@ for x in asigs[0:6]:
 #
 # Segundo bloque
 #
-cols = st.columns(6, gap='medium')
+cols = st.columns(4, gap='small')
 ncol = 0
-for x in asigs[6:12]:
+for x in asigs[3:6]:
     ncol = ncol + 1
     #
     # Calculamos los promedios de cada asignatura
@@ -141,9 +138,85 @@ for x in asigs[6:12]:
 
         fig
 
+#
+# Tercer bloque
+#
+cols = st.columns(4, gap='small')
+ncol = 0
+for x in asigs[6:9]:
+    ncol = ncol + 1
+    #
+    # Calculamos los promedios de cada asignatura
+    #
+    media = pd.to_numeric(df_cleaned[x]).mean().round(2)
+    
+    with cols[ncol-1]:
+        fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=media,
+            gauge=dict(
+                axis=dict(range=[None, 10]),
+                bar=dict(color="green"),
+                steps=[
+                    dict(range=[0, 10], color="lightgray")
+                ],
+            ),
+            domain={'row': 0, 'column':  0},
+            title={'text': x}
+        ))
+        fig.update_layout(
+        paper_bgcolor="#2E2EFE",
+        height=250,  
+        width = 250
+        )
+
+        fig
+
+#
+# Cuarto bloque
+#
+cols = st.columns(4, gap='small')
+ncol = 0
+for x in asigs[9:12]:
+    ncol = ncol + 1
+    #
+    # Calculamos los promedios de cada asignatura
+    #
+    media = pd.to_numeric(df_cleaned[x]).mean().round(2)
+    
+    with cols[ncol-1]:
+        fig = go.Figure(go.Indicator(
+            mode="gauge+number",
+            value=media,
+            gauge=dict(
+                axis=dict(range=[None, 10]),
+                bar=dict(color="green"),
+                steps=[
+                    dict(range=[0, 10], color="lightgray")
+                ],
+            ),
+            domain={'row': 0, 'column':  0},
+            title={'text': x}
+        ))
+        fig.update_layout(
+        paper_bgcolor="#2E2EFE",
+        height=250,  
+        width = 250
+        )
+
+        fig
+
+#
+# Análisis de promedio general de calificaciones por asignatura y generación
 # Supongamos que tienes un DataFrame llamado 'df' con una columna 'Generación'
 df_cleaned["Generación"] = df_cleaned["Generación"].astype("category")
 
+"""
+---
+### Análisis del promedio general de calificaciones por asignatura y generación
+
+Explicar el objetivo de esta sección
+"""
 # Ordenar y obtener los valores únicos de la columna 'Generación'
 generaciones = sorted(df_cleaned['Generación'].unique())
 
@@ -191,3 +264,5 @@ fig.update_traces(textposition="outside",
                   )
 fig
 
+
+st.warning("### ¿Poner *insights*?")

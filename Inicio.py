@@ -54,7 +54,7 @@ div[data-testid="metric-container"] > label[data-testid="stMetricLabel"] > div {
 #
 df = read_data()
 
-tab1, tab2, tab3, tab4 = st.tabs(["MAD y sus Datos", "¿Qué es el Análisis de Datos? ", "Los Datos", "Revelaciones"])
+tab1, tab2, tab3, tab4 = st.tabs(["MAD y sus Datos", "¿Qué es el Análisis de Datos? ", "Los Datos", "Datos Agregados"])
 
 with tab1:
     """
@@ -87,6 +87,24 @@ with tab2:
     #### El proceso de análisis de datos
     El proceso de análisis de datos se basa en varios pasos y fases. Es posible que las conclusiones de fases posteriores requieran volver a trabajar en una fase anterior, 
     lo que implica un proceso más cíclico que lineal. Lo más importante es que el éxito de los procesos de análisis de datos depende de la capacidad de repetición y automatización de cada uno de estos pasos.
+
+    Estos son algunos puntos clave del proceso de análisis de datos:
+
+    1. Definir los objetivos: Antes de comenzar cualquier análisis, es importante comprender los objetivos y las preguntas que se pretenden responder. Esto ayudará a guiar todo el proceso de análisis y asegurar que se obtengan los resultados deseados.
+
+    2. Recopilación de datos: El siguiente paso implica recopilar los datos necesarios para el análisis. Esto puede implicar la extracción de datos de diversas fuentes, como bases de datos, archivos CSV, APIs, sitios web, entre otros. Es importante garantizar la calidad y la integridad de los datos durante este proceso.
+
+    3. Limpieza de datos: Los datos recopilados pueden contener errores, valores faltantes o inconsistentes. En esta etapa, se realiza la limpieza de datos para eliminar o corregir estos problemas. Esto implica la eliminación de duplicados, el relleno de valores faltantes y la estandarización de formatos.
+
+    4. Exploración de datos: Una vez que los datos están limpios, se lleva a cabo una exploración inicial para comprender mejor su estructura y características. Esto implica el cálculo de estadísticas descriptivas, la visualización de datos mediante gráficos y la identificación de patrones o tendencias preliminares.
+
+    5. Análisis y modelado: En esta etapa, se aplican técnicas y algoritmos de análisis de datos para extraer información significativa y responder a las preguntas planteadas al inicio. Esto puede involucrar técnicas como regresión, clasificación, agrupamiento, series de tiempo, minería de textos, entre otras, dependiendo del tipo de datos y los objetivos del análisis.
+
+    6. Interpretación de resultados: Una vez que se obtienen los resultados del análisis, es importante interpretarlos correctamente y extraer conclusiones relevantes. Esto implica comunicar los hallazgos de manera clara y comprensible, utilizando gráficos, tablas u otras herramientas visuales.
+
+    7. Toma de decisiones: Finalmente, basándose en los resultados y conclusiones del análisis, se toman decisiones informadas. Estas decisiones pueden implicar cambios en procesos, estrategias de negocio, identificación de oportunidades, mitigación de riesgos, entre otros aspectos relevantes.
+
+    Es importante destacar que el proceso de análisis de datos es iterativo y puede requerir ajustes en cada etapa a medida que se obtiene un mayor conocimiento y comprensión de los datos. Además, el análisis de datos ético y responsable implica considerar aspectos como la privacidad, la seguridad y el cumplimiento normativo durante todo el proceso.
     """
 with tab3:
     """
@@ -184,7 +202,12 @@ with tab3:
 
 with tab4:
     """
-    ## Revelaciones (*insights*)
+    ## Algunos datos agregados
+    Los datos agregados suelen ser los totales o promedios que representan a la población analizada.
+
+    En nuestro caso representan los valores asociados a los alumnos y sus calificaciones, todo ello en variables agrupadas.
+
+    ---
     """
     # Cantidad de alumnos
     cant_alumnos_total = len(df.index)
