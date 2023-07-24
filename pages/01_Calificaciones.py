@@ -60,11 +60,14 @@ df_cleaned = clean_data(df)
 ## Indicadores de Desempeño
 
 ### Promedios Totales por Asignatura
-- Cada imagen muestra el promedio de calificaciones para cada asignatura de todas las generaciones. 
-- **Para el cálculo no se incluyeron los alumnos que han desertado.**
-###
+Cada imagen muestra el promedio de calificaciones para cada asignatura de todas las generaciones. 
 """
 
+st.warning('Para el cálculo NO se incluyeron los alumnos que han desertado.')
+
+"""
+##
+"""
 #
 # Extraemos los nombre de las asignaturas en una lista
 #
@@ -241,12 +244,24 @@ fig.update_traces(textposition="outside",
 fig
 
 
-st.warning("### ¿Poner *insights*?")
-
 #
 # Heatmap de calificaciones
 #
 # Asignaturas 
+
+"""
+---
+### ¿Qué es un mapa de calor (*heatmap*)?
+
+Un mapa de calor (heat map, en inglés) es una técnica de visualización de datos que mide la magnitud de un fenómeno en colores en dos dimensiones. 
+La variación del color puede ser por tono o intensidad, haciendo obvia la lectura del fenómeno sobre el espacio que se trata.
+
+A continuación se muestra un *heatmap* que permite comparar los **promedios de las calificaciones** para cada asignatura y para cada generación de la MAD.
+
+La intensidad del color es proporcional al promedio de las calificaciones consideradas.
+
+Los valores nulos (*null*) se deben a las asignaturas que no se han calificado para el semestre 2023-2 al momento del desarrollo de esta aplicación.
+"""
 asignaturas = (df_cleaned.columns.to_numpy())
 # st.write(asignaturas)
 # st.write(df_cleaned)
@@ -282,12 +297,21 @@ trace = go.Heatmap(
 )
 
 
-
+layout = go.Layout(xaxis=go.layout.XAxis(
+    title=go.layout.xaxis.Title(
+        text='Depth Axis',
+    )),
+yaxis=go.layout.YAxis(
+    title=go.layout.yaxis.Title(
+        text='Time Axis',
+    )
+))
 
 trace.colorbar.title = "Calificación"
 
-fig = go.Figure(data = trace)
+
 fig.update_layout(autosize=False, width=600, height=600, title={'text':'Mapa de calor de calificaciones'})
+fig = go.Figure(data = trace, layout=layout)
 #fig['layout'].update(plot_bgcolor='#2E64FE')
 st.plotly_chart(fig, use_container_width=True)
 
@@ -306,3 +330,36 @@ fig = px.bar(
 fig.update_layout(yaxis_range=[6,10])
 
 st.plotly_chart(fig, use_container_width=True)
+
+figx = px.bar(
+   df_gg,
+   x='Generación',
+   y='Promedio',
+   title='Calificación Total Promedio por Generación',
+   color=df_gg['Promedio'],
+   text=df_gg['Promedio'].round(2),
+   labels = dict(x = "",y = ""),
+   hover_name="Generación",
+   #hover_data=['Promedio', 'Generación'],
+    color_continuous_scale=["#9FF781", "#088A29"]
+)
+#figx.update_layout(yaxis_range=[6,10])
+figx.update(layout_coloraxis_showscale=False)
+figx.update_yaxes(visible=False, showticklabels=False)
+figx.update_yaxes(visible=False, showticklabels=False)
+# Ancho relativo de las barras. 1 es la norma.
+figx.update_traces(width=0.5)
+
+# Fuente: https://stackoverflow.com/questions/60158618/plotly-how-to-add-elements-to-hover-data-using-plotly-express-piechart
+# import plotly.express as px
+# df = px.data.gapminder().query("year == 2007").query("continent == 'Americas'")
+# fig = px.pie(df, values='pop', names='country',
+#              title='Population of American continent',
+#              custom_data=['lifeExp','iso_num'], labels={'lifeExp':'life expectancy','iso_num':'iso num'
+#                                                       })
+# fig.update_traces(textposition='inside', textinfo='percent+label',\
+#                  hovertemplate = "Country:%{label}: <br>Population: %{value} </br>(life expentancy, iso num) : %{customdata}"
+# )
+
+
+st.plotly_chart(figx, use_container_width=True)
