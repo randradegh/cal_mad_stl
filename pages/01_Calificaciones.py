@@ -199,7 +199,7 @@ generaciones = sorted(df_cleaned['Generación'].unique())
 generaciones = [int(g) for g in generaciones]
 
 
-cols1,cols2 = st.columns([1,6])
+cols1,cols2 = st.columns([2,6])
 
 with cols1:
     # Crear el widget select en Streamlit
@@ -319,18 +319,24 @@ st.plotly_chart(fig, use_container_width=True)
 # Promedio general por generación
 #
 
-fig = px.bar(
-   y=df_gg['Promedio'], 
-   x=df_gg['Generación'], 
-   title='Calificación Total Promedio por Generación',
-   color=df_gg['Promedio'],
-   text=df_gg['Promedio'].round(2),
-   labels = dict(x = "Generación",y = "Promedio Total")
-)
-fig.update_layout(yaxis_range=[6,10])
+# fig = px.bar(
+#    y=df_gg['Promedio'], 
+#    x=df_gg['Generación'], 
+#    title='Calificación Total Promedio por Generación',
+#    color=df_gg['Promedio'],
+#    text=df_gg['Promedio'].round(2),
+#    labels = dict(x = "Generación",y = "Promedio Total")
+# )
+# fig.update_layout(yaxis_range=[6,10])
 
-st.plotly_chart(fig, use_container_width=True)
+# st.plotly_chart(fig, use_container_width=True)
 
+"""
+---
+#### Las calificiones por generación
+En este apartado mostramos una gráfica de barras que nos permite visualizar los promedios de las calificaciones
+de todas las asignaturas para todas las generaciones.
+"""
 figx = px.bar(
    df_gg,
    x='Generación',
@@ -363,3 +369,10 @@ figx.update_traces(width=0.5)
 
 
 st.plotly_chart(figx, use_container_width=True)
+
+# st.write(df_cleaned)
+
+# fig = px.line_polar(df_cleaned, r="frequency", theta="direction", color="strength", line_close=True,
+#                     color_discrete_sequence=px.colors.sequential.Plasma_r,
+#                     template="plotly_dark",)
+# fig.show()

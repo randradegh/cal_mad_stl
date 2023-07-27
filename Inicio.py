@@ -54,6 +54,32 @@ div[data-testid="metric-container"] > label[data-testid="stMetricLabel"] > div {
 #
 df = read_data()
 
+colq1, colq2 = st.columns(2)
+
+with colq1:
+    c1, m, c2 = st.columns([3,0.5,20])
+    with c1:
+        st.image('images/qm_02.png', width = 100)
+        st.image('images/qm_02.png', width = 100)
+    with c2:
+        """
+        #### ¿Que generación tiene el promedio más alto?
+        ###
+        #### ¿Hay variaciones en los promedios de calificaciones de las asignaturas?
+        """
+with colq2:
+    c11, m1, c21 = st.columns([3,0.5,20])
+    with c11:
+        st.image('images/qm_02.png', width = 100)
+        st.image('images/qm_02.png', width = 100)
+    with c21:
+        """
+        #### ¿Son comparables los promedios de cada generación?
+        ###
+        #### ¿Qué tan dispersos son los datos de las calificaciones en cada generación y asignatura?
+        """
+
+
 tab1, tab2, tab3, tab4 = st.tabs(["MAD y sus Datos", "¿Qué es el Análisis de Datos? ", "Los Datos", "Datos Agregados"])
 
 with tab1:
@@ -71,7 +97,7 @@ with tab1:
     de aprendizaje pueden influir en su rendimiento. Estos **insights** pueden usarse para personalizar la experiencia educativa, 
     ofreciendo materiales de estudio adicionales, tutorías específicas o adaptando la metodología de enseñanza para maximizar el aprendizaje y la participación de los estudiantes.
 
-    Esta es la primera versión de un proyecto que tiene como objetivo ofrecer de manera sintética algunos datos y gráficos que permitan conocer mejor el desempeño general de
+    Esta es la primera versión (versión *beta*) de un proyecto que tiene como objetivo ofrecer de manera sintética algunos datos y gráficos que permitan conocer mejor el desempeño general de
     la **Maestría en Alta Dirección** de la Facultad de Química de la UNAM.
     """
 
@@ -221,116 +247,6 @@ with tab4:
     # Porcentaje de desertores
     porcien_desertores= (qty_desertores * 100) / qty_alumnos_registrados
 
-    #
-    # Indicadores
-    #
-    # font_color_text = '#7FB3D5'
-    # font_color_number = '#61210B'
-    # BGCOLOR = "#2E64FE"
-    # col01, col02, col03, col04, col05 = st.columns(5)
-    # fig_ind = go.Figure()
-
-    # with col01:
-    #     ref = 5
-    #     fig_ind.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = qty_alumnos_registrados,
-    #         title = {'text': 'Alumnos<br><b>Registrados</b>', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 0}))
-        
-    # with col02:
-    #     ref = 5
-    #     fig_ind.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = cant_alumnos_total,
-    #         title = {'text': 'Alumnos<br><b>Analizados</b>', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 1}))
-
-    # with col03:
-    #     ref = 5
-    #     fig_ind.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = qty_gen,
-    #         title = {'text': '<b>Generaciones</b>', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 2}))
-        
-    # with col04:
-    #     ref = 5
-    #     fig_ind.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = 12,
-    #         title = {'text': '<b>Asignaturas</b>', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 3}))
-        
-        
-    # fig_ind.update_layout(
-    #     paper_bgcolor = BGCOLOR, 
-    #     width=1200,
-    #     height = 220,
-    #     margin=dict(l=20, r=20, t=40, b=0),
-    #     grid = {'rows': 1, 'columns': 4, 'pattern': "independent"},
-    # )
-
-    # fig_ind
-
-    # font_color_text = 'white'
-    # font_color_number = '#002b7a'
-    # BGCOLOR = "#FAAC58"
-    # col11, col12, col13, col14 = st.columns(4)
-    # fig_ind2 = go.Figure()
-
-    # with col11:
-    #     ref = 6
-    #     fig_ind2.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = qty_graduados,
-    #         title = {'text': '<b>Graduados</b>', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 0}))
-        
-    # with col12:
-    #     ref = 6
-    #     fig_ind2.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = qty_desertores,
-    #         title = {'text': '<b>Desertores</b>', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 1}))
-        
-    # with col13:
-    #     ref = 5
-    #     fig_ind2.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'prefix': "",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = cal_promedio_gral,
-    #         title = {'text': '<b>Promedio</b><br>General', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 2}))
-
-    # with col14:
-    #     ref = 5
-    #     fig_ind2.add_trace(go.Indicator(
-    #         mode = "number",
-    #         number = {'suffix': "%",'font.size' : 60, 'font.color': font_color_number, 'valueformat':','},
-    #         value = porcien_desertores,
-    #         title = {'text': '<b>Porcentaje de</b><br>Desertores', 'font.size': 25, 'font.color':font_color_text},
-    #         domain = {'row': 0, 'column': 3}))
-
-
-    # fig_ind2.update_layout(
-    #     paper_bgcolor = BGCOLOR, 
-    #     width=1200,
-    #     height = 220,
-    #     margin=dict(l=20, r=20, t=40, b=0),
-    #     grid = {'rows': 1, 'columns': 4, 'pattern': "independent"},
-    # )
-
-    # fig_ind2
-
-    #c1, c2, c3, c4 = st.columns(4)
     c1, c2, c3, c4= st.columns(4)
     c1.metric("Alumnos Registrados", qty_alumnos_registrados)
     c2.metric("Alumnos Analizados", cant_alumnos_total)
@@ -342,33 +258,3 @@ with tab4:
     c12.metric("Desertores", qty_desertores)
     c13.metric("Promedio General", cal_promedio_gral)
     c14.metric("Porcentaje de Desertores", str(porcien_desertores) + '%')
-    
-
-
-    # fig = go.Figure()
-
-
-    # fig.add_trace(go.Indicator(
-    # value = 200,
-    # delta = {'reference': 160},
-    # gauge = {
-    #     'axis': {'visible': False}},
-    # domain = {'row': 0, 'column': 0}))
-
-    # fig.add_trace(go.Indicator(
-    # value = 120,
-    # gauge = {
-    #     'shape': "bullet",
-    #     'axis' : {'visible': False}},
-    #     domain = {'row': 0, 'column': 1}))
-        
-
-    # fig.update_layout(
-    #     grid = {'rows': 1, 'columns': 2, 'pattern': "independent"},
-    #     template = {'data' : {'indicator': [{
-    #         'title': {'text': "Speed"},
-    #         'mode' : "number+delta+gauge",
-    #         'delta' : {'reference': 90}}]
-    #                         }})
-
-    # fig
