@@ -35,6 +35,12 @@ def read_data():
 # Limpieza de datos
 #
 
+def edad_mean(df_base):
+    edad_promedio=df_base['Edad al ingresar'].mean().round(1)
+    return edad_promedio
+
+
+
 def clean_data(df_base):
     # Eliminamos a los desertores
     df_base.drop(df_base[df_base['Avance'] == 'Desertó'].index, inplace=True)
