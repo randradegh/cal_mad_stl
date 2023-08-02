@@ -54,12 +54,51 @@ df = read_data()
 #
 # Limpieza de datos
 #
-df_cleaned = clean_data(df)
 
 """
 ## Indicadores de Desempeño
+### Promedios Totales por Asignatura, Todas las Generaciones
+"""
+df_cleaned = clean_data(df)
+df_asig_mean = df_cleaned.mean(axis=0).round(2)
+df_asig_mean.drop(['Generación', 'Promedio'], inplace=True)
+df_asig_mean.rename('Promedio', inplace=True)
+df_asig_mean = df_asig_mean.to_frame()
+#st.write(df_asig_mean)
 
-### Promedios Totales por Asignatura
+figam = px.bar(
+   df_asig_mean,
+   y='Promedio',
+   title='Calificación Total Promedio por Asignatura',
+   color=df_asig_mean['Promedio'],
+   text=df_asig_mean['Promedio'].round(2),
+   labels = dict(x = "",y = ""),
+   hover_name="Promedio",
+   hover_data=['Promedio'],
+   color_continuous_scale=["#9A2EFE","#4000FF"]
+)
+figam.update(layout_coloraxis_showscale=False)
+#figam.update_yaxes(visible=False, showticklabels=False)
+#figam.update_yaxes(visible=False, showticklabels=False)
+# Ancho relativo de las barras. 1 es la norma.
+figam.update_traces(width=0.5)
+
+# Fuente: https://stackoverflow.com/questions/60158618/plotly-how-to-add-elements-to-hover-data-using-plotly-express-piechart
+# import plotly.express as px
+# df = px.data.gapminder().query("year == 2007").query("continent == 'Americas'")
+# fig = px.pie(df, values='pop', names='country',
+#              title='Population of American continent',
+#              custom_data=['lifeExp','iso_num'], labels={'lifeExp':'life expectancy','iso_num':'iso num'
+#                                                       })
+# fig.update_traces(textposition='inside', textinfo='percent+label',\
+#                  hovertemplate = "Country:%{label}: <br>Population: %{value} </br>(life expentancy, iso num) : %{customdata}"
+# )
+
+
+st.plotly_chart(figam, use_container_width=True)
+"""
+___
+### Promedios Totales por Asignatura, Todas las Generaciones
 Cada imagen muestra el promedio de calificaciones para cada asignatura de todas las generaciones. 
 """
 
