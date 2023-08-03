@@ -162,6 +162,16 @@ with tabi2:
     - La generación del :orange[**2019**] cuenta con el promedio :violet[**más alto**] en todas las asignaturas.
     - La asignatura de :orange[**MCyF**] cuenta con la :violet[**mayor**] dispersión en sus calificaciones para todas las generaciones.
     - Con respecto a las edades al ingresar, el :orange[**mínimo**] es de :violet[**26**] años, el máximo de 59, la :orange[**mediana**] de :violet[**37**] años y una :orange[**edad promedio**] de :violet[**{edad_promedio}**] años.
+    - Los institutos de educación superios (IES) que más alumnos aportan a la MAD son la UNAM, el IPN y la UAM.
+    - La Universidad del Valle de México, la Universidad Tecnológica de México y el Tec de Monterrey (ITESM) son las instituciones privadas con más alumnos en la MAD.
+
+    #### Comentarios
+    - Hablar de la no homologación de exámenes.
+
+    #### Propuestas para las futuras versiones
+    - Analizar calificaciones por profesores.
+    - Analizar promedios de alumnos por IES de origen, por edad.
+
     """
     
 
