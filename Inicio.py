@@ -190,7 +190,8 @@ with tab3:
     # Eliminación de los registros de los alumnos que desertaron
     ##
     df_cleaned = clean_data(df)
-    st.write(df_cleaned)
+    qty_alumnos_cleaned = len(df_cleaned)
+    #st.write(df_cleaned)
 
 
     """
@@ -207,6 +208,10 @@ with tab3:
 
     df_num=df_cleaned.drop(['Generación'], axis=1)
     st.write(df_num)
+
+    st.warning(
+        f"El dataset original contaba con :orange[{qty_alumnos_registrados}] alumnos; en cambio el **dataset** limpio solamente con :green[{qty_alumnos_cleaned}] alumnos."
+    )
 
     """
     ___
@@ -225,6 +230,9 @@ with tab3:
     """
     Más adelante revisaremos con detalle la distribución de calificaciones para cada asignatura.
     """
+    cal_min = desc.iloc[3].min()
+    cal_max = desc.iloc[7].min()
+    st.write(f"{cal_min}, {cal_max}")
 
 with tab4:
     """

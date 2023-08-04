@@ -154,17 +154,21 @@ with tabi1:
 
 edad_promedio = edad_mean(df)
 with tabi2:
+    desc = df_num.describe()
+    cal_min = desc.iloc[3].min()
+    cal_max = desc.iloc[7].min()
     f"""
     #### Revelaciones (*Insights*)
 
     - La asignatura de :orange[**Comercialización**] tiene el :violet[**mayor**] valor promedio en sus calificaciones para todas las generaciones.
     - La asignatura de :orange[**MCyF**] tiene el :violet[**menor**] valor promedio en sus calificaciones para todas las generaciones.
     - La generación del :orange[**2019**] cuenta con el promedio :violet[**más alto**] en todas las asignaturas.
+    - La calificación :orange[mínima] reportada es :red[{cal_min}] y la :orange[máxima] es :green[{cal_max}].
     - La asignatura de :orange[**MCyF**] cuenta con la :violet[**mayor**] dispersión en sus calificaciones para todas las generaciones.
     - Con respecto a las edades al ingresar, el :orange[**mínimo**] es de :violet[**26**] años, el máximo de 59, la :orange[**mediana**] de :violet[**37**] años y una :orange[**edad promedio**] de :violet[**{edad_promedio}**] años.
     - Los institutos de educación superios (IES) que más alumnos aportan a la MAD son la UNAM, el IPN y la UAM.
     - La Universidad del Valle de México, la Universidad Tecnológica de México y el Tec de Monterrey (ITESM) son las instituciones privadas con más alumnos en la MAD.
-
+    
     #### Comentarios
     - Hablar de la no homologación de exámenes.
 
