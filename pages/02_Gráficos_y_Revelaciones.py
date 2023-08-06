@@ -170,8 +170,17 @@ with tabi2:
     - La Universidad del Valle de México, la Universidad Tecnológica de México y el Tec de Monterrey (ITESM) son las instituciones privadas con más alumnos en la MAD.
     
     #### Comentarios
-    - Hablar de la no homologación de exámenes.
+    ¿Tiene sentido comparar las calificaciones de las diversas asignaturas?
 
+    Las diferencias entre los promedios de las diversas asignaturas dependen de muchos factores:
+    - Las cualidades de los profesores que imparten las clases.
+    - La dificultad intrínseca de cada asignatura.
+    - Los aspectos que se evalúan en cada una de ellas.
+    - Los pesos asignados a los diversos parámetros que se están evaluando para generar la calificación final de un alumno.
+    - Otros.
+
+    Sin embargo, las comparaciones que hacemos en este análisis es adecuado para los datos proporcionados.
+    
     #### Propuestas para las futuras versiones
     - Analizar calificaciones por profesores.
     - Analizar promedios de alumnos por IES de origen, por edad.
