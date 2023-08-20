@@ -29,7 +29,13 @@ def encabezado():
 #
 
 def read_data():
-    return pd.read_csv("data/cal_mad_01.csv", sep=',')
+    #return pd.read_csv("data/cal_mad_01.csv", sep=',')
+
+    df = pd.read_csv("data/cal_mad_sexo_ready.csv", sep=',')
+    sex_dict = {'male':'hombre', 'female':'mujer'}
+    df = df.replace({'sexo': sex_dict})
+
+    return df
 
 #
 # Limpieza de datos
@@ -47,7 +53,7 @@ def clean_data(df_base):
 
     # Eliminamos las columnas no necesarias para el análisis de calificaciones
     # df_base contendrá solamente las calificaciones y las generaciones
-    df_base=df_base.drop(['No.', 'Nombre', 'Avance', 'Graduado', 'SIMAD', 'ADA', 'Fecha de Nacimiento', 'Carrera', 'Escuela', 'IES', 'Otro grado', 'Escuela otro', 'IES otro', 'Edad al ingresar'], axis=1)
+    df_base=df_base.drop(['No.', 'Nombre', 'Avance', 'Graduado', 'SIMAD', 'ADA', 'Fecha de Nacimiento', 'Carrera', 'Escuela', 'IES', 'Otro grado', 'Escuela otro', 'IES otro', 'Edad al ingresar','sexo'], axis=1)
     
     # Convertimos 'NI' y 'NP' a nulos.
     for column in df_base:
@@ -56,4 +62,23 @@ def clean_data(df_base):
         df_base[column] = df_base[column].astype("float64")
     
     return df_base
+
+# import gender_guesser.detector as gender
+# d=gender.Detector()
+# >>> print(d.get_gender('Álvarez Pérez David'.split().[-1]))
+#   File "<stdin>", line 1
+#     print(d.get_gender('Álvarez Pérez David'.split().[-1]))
+#                                                      ^
+# SyntaxError: invalid syntax
+# >>> print(d.get_gender('Álvarez Pérez David'.split()[-1]))
+# male
+# >>> print(d.get_gender('Alonso Galeana Marco Antonio'.split()[-1]))
+# male
+# >>> print(d.get_gender('Campa Arvizu Carlos Félix'.split()[-1]))
+# male
+# >>> print(d.get_gender('Guadarrama Lara Melissa'.split()[-1]))
+# female
+# >>> print(d.get_gender('Duarte Michel Lilia Angélica'.split()[-1]))
+# female
+
 

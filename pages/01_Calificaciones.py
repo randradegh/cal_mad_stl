@@ -409,6 +409,31 @@ figx.update_traces(width=0.5)
 
 st.plotly_chart(figx, use_container_width=True)
 
+#
+# Promedio de calificaiones por sexo
+#
+
+# Calcular la cantidad de alumnos por sexo
+cantidad_por_sexo = df['sexo'].value_counts()
+st.write(cantidad_por_sexo)
+
+# Crear el gráfico de sectores
+#st.plotly_chart(figx, use_container_width=False)
+fig = px.pie(df,df['sexo'],
+             #facet_col= 'Generación',
+             title='Cantidad de Alumnos por Sexo')
+
+# Mostrar el gráfico
+fig
+
+#st.plotly_chart(figx, use_container_width=True)
+fig = px.pie(df,df['sexo'],
+             facet_col= 'Generación',
+             title='Cantidad de Alumnos por Sexo y por Generación')
+
+# Mostrar el gráfico
+fig
+
 # st.write(df_cleaned)
 
 # fig = px.line_polar(df_cleaned, r="frequency", theta="direction", color="strength", line_close=True,
