@@ -410,33 +410,58 @@ figx.update_traces(width=0.5)
 st.plotly_chart(figx, use_container_width=True)
 
 #
-# Promedio de calificaiones por sexo
+# Sexo por generaciones
 #
 
 # Calcular la cantidad de alumnos por sexo
-cantidad_por_sexo = df['sexo'].value_counts()
-st.write(cantidad_por_sexo)
+#cantidad_por_sexo = df['sexo'].value_counts()
+#st.write(cantidad_por_sexo)
 
-# Crear el gráfico de sectores
-#st.plotly_chart(figx, use_container_width=False)
-fig = px.pie(df,df['sexo'],
+# Crear el gráfico de sectores.
+# Alumnos por sexo, todas las generaciones
+
+figs1 = px.pie(df,df['sexo'],
              #facet_col= 'Generación',
-             title='Cantidad de Alumnos por Sexo')
+             title='Cantidad de Alumnos por Sexo',
+             template='plotly'
+             #color_discrete_sequence=('#2E9AFE','#E2A9F3')
+             )
 
 # Mostrar el gráfico
-fig
+st.plotly_chart(figs1, use_container_width=True)
 
-#st.plotly_chart(figx, use_container_width=True)
-fig = px.pie(df,df['sexo'],
+# Alumnos por sexo por generación
+
+df=df.sort_values('Generación')
+figs2 = px.pie(df,df['sexo'],
              facet_col= 'Generación',
-             title='Cantidad de Alumnos por Sexo y por Generación')
+             facet_col_wrap=4,
+             title='Cantidad de Alumnos por Sexo y por Generación',
+             template='plotly'
+             #color_discrete_sequence=('#2E9AFE','#E2A9F3')
+             )
 
 # Mostrar el gráfico
-fig
+st.plotly_chart(figs2, use_container_width=True)
 
-# st.write(df_cleaned)
+#
+# Gráfico de área
+#
+# Calcular el conteo de registros por generación y sexo
+conteo_por_generacion_sexo = df.groupby(['Generación', 'sexo']).size().reset_index(name='Conteo')
+#st.write(conteo_por_generacion_sexo)
 
-# fig = px.line_polar(df_cleaned, r="frequency", theta="direction", color="strength", line_close=True,
-#                     color_discrete_sequence=px.colors.sequential.Plasma_r,
-#                     template="plotly_dark",)
-# fig.show()
+# Crear el gráfico de área
+figs3 = px.line(conteo_por_generacion_sexo, 
+              x='Generación', 
+              y='Conteo', 
+              color='sexo',
+              #size='Conteo',
+              markers=True,
+              title='Distribución de Sexo por Generación',
+              labels={'Generación': 'Año', 'Conteo': 'Cantidad'},
+              template='plotly')  # Puedes elegir la plantilla de diseño 'plotly'
+
+# Mostrar el gráfico
+st.plotly_chart(figs3, use_container_width=True)
+#figs3
